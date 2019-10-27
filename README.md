@@ -1,3 +1,0 @@
-# Web site for Apache Lucene and Solr
-
-This repo will contain the web site...

@@ -1,0 +1,341 @@
+
+<head>
+  <!--
+      Licensed to the Apache Software Foundation (ASF) under one or more
+      contributor license agreements.  See the NOTICE file distributed with
+      this work for additional information regarding copyright ownership.
+      The ASF licenses this file to You under the Apache License, Version 2.0
+      (the "License"); you may not use this file except in compliance with
+      the License.  You may obtain a copy of the License at
+
+         http://www.apache.org/licenses/LICENSE- 2.0
+
+      Unless required by applicable law or agreed to in writing, software
+      distributed under the License is distributed on an "AS IS" BASIS,
+      WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+      See the License for the specific language governing permissions and
+      limitations under the License.
+  -->
+
+  
+    <link href="../css/global.css" rel="stylesheet" type="text/css">
+    <link href="../css/pylucene.css" rel="stylesheet" type="text/css">
+
+  <title>Apache Lucene - </title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/>
+  <meta name="Distribution" content="Global"/>
+  <meta name="Robots" content="index,follow"/>
+  <meta name="keywords"
+        content="apache, jcc, pylucene, lucene, apache pylucene, apache jcc,
+  apache lucene, python java, open source"/>
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/lucene-favicon.ico"/>
+  
+<script type="text/javascript" src="../scripts/prototype.js"></script>
+<script type="text/javascript" src="../scripts/effects.js"></script>
+<script type="text/javascript" src="../scripts/search.js"></script>
+<script type="text/javascript" src="../scripts/slides.js"></script>
+
+<!--<script type="text/javascript" src="scripts/jquery.js"></script>-->
+
+</head>
+
+
+<body id="home">
+<div id="wrap">
+  <div id="header">
+    <div id="logo" style="float:left">
+      
+  <a href="index.html"><img border="0" src="../images/lucene_logo_green_300.png"
+                                            alt="Lucene Logo"/></a><div style="position:absolute;right:100px;top:10px"><span style="vertical-align: super; font-size: xx-small">TM</span></div>
+
+
+    </div>
+    <div id="search" style="float:right;zoom:1">
+  <script type="text/javascript">
+    function getBlank(input, stdValue) {
+      if (input.value == stdValue) {
+        input.value = '';
+      }
+      return true;
+    }
+
+    function submitForm(form) {
+      provider = form.elements['searchProvider'].value;
+      if (provider == "any") {
+        if (Math.random() > 0.5) {
+          provider = "lucid";
+        } else {
+          provider = "sl";
+        }
+      }
+
+      if (provider == "lucid") {
+        form.action = "http://find.searchhub.org/p:lucene,solr";
+      } else if (provider == "sl") {
+        form.action = "http://search-lucene.com/lucene";
+      }
+
+      days = 90; // cookie will be valid for 90 days
+      date = new Date();
+      date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+      expires = "; expires=" + date.toGMTString();
+      document.cookie = "searchProvider=" + provider + expires + "; path=/";
+
+      return true;
+    }
+  </script>
+  <form id="quick-search" method="GET" onsubmit="return submitForm(this)"
+        action="http://search-lucene.com/lucene"
+        name="searchform">
+    <fieldset>
+      <input type="search" id="q" name="q" value="Search with Apache Solr..." class="class1 class2 hint" accesskey="q"
+             onfocus="getBlank(this, 'Search with Apache Solr...')">
+      <span style="color:white">@</span>
+      <select name="searchProvider" id="searchProvider">
+        <option value="any">select provider</option>
+        <option value="lucid">Lucid Find</option>
+        <option value="sl">Search-Lucene</option>
+      </select>
+    </fieldset>
+    <script type="text/javascript">
+      if (document.cookie.length > 0) {
+        cStart = document.cookie.indexOf("searchProvider=");
+        if (cStart != -1) {
+          cStart = cStart + "searchProvider=".length;
+          cEnd = document.cookie.indexOf(";", cStart);
+          if (cEnd == -1) {
+            cEnd = document.cookie.length;
+          }
+          provider = unescape(document.cookie.substring(cStart, cEnd));
+          document.forms['searchform'].elements['searchProvider'].value = provider;
+        }
+      }
+    </script>
+  </form>
+</div>
+
+    <div id="nav">
+      
+  
+<ul>
+  <li><a href="index.html">PyLucene</a></li>
+  <li><a href="jcc/index.html">JCC</a></li>
+  <li><a href="https://issues.apache.org/jira/browse/PYLUCENE">Issue Tracker</a></li>
+  <li><a href="mailing-lists.html">Mailing Lists</a></li>
+  <li><a class="last" href="../index.html">Lucene TLP</a></li>
+</ul>
+
+
+    </div>
+    
+
+  </div> 
+  <div id="content-wrap" class="clearfix">
+    <div id="main">
+      <h1 class="title"></h1>
+
+      <div><style type="text/css">
+/* The following code is added by mdx_elementid.py
+   It was originally lifted from http://subversion.apache.org/style/site.css */
+/*
+ * Hide class="elementid-permalink", except when an enclosing heading
+ * has the :hover property.
+ */
+.headerlink, .elementid-permalink {
+  visibility: hidden;
+}
+h2:hover > .headerlink, h3:hover > .headerlink, h1:hover > .headerlink, h6:hover > .headerlink, h4:hover > .headerlink, h5:hover > .headerlink, dt:hover > .elementid-permalink { visibility: visible }</style>
+<h2 id="building-pylucene">Building PyLucene<a class="headerlink" href="#building-pylucene" title="Permanent link">&para;</a></h2>
+<p>PyLucene is completely code-generated by JCC whose sources are
+included with the PyLucene sources.<br/></p>
+<h2 id="requirements">Requirements<a class="headerlink" href="#requirements" title="Permanent link">&para;</a></h2>
+<p>To build PyLucene a Java Development Kit (JDK)
+and <a href="https://ant.apache.org">Ant</a> are required; use of the
+resulting PyLucene binaries requires only a Java Runtime Environment
+(JRE).</p>
+<p><b>Attention:</b> Starting with release 6.x, Lucene requires Java 1.8.</p>
+<p>On macOS, you will need to install Oracle Java 8, and due to a 
+<a href="https://bugs.openjdk.java.net/browse/JDK-7131356">bug</a> in the JDK for macOS,
+you will <strong>also</strong> need to install Apple's Java 1.6.</p>
+<p>On macOS, once installed, a way to make Java 1.8 the default in your bash 
+shell is:<br/>
+ <code>  $ export JAVA_HOME=`/usr/libexec/java_home`</code>
+Be sure to verify that JAVA_HOME value.</p>
+<p>On any system, if you're upgrading your Java installation, please rebuild
+JCC as well. You must use the same version of Java for both JCC and PyLucene.</p>
+<p>A modern version of setuptools is required for building JCC in shared mode.
+See JCC's <a href="jcc/install.html">installation instructions</a> for more
+information.</p>
+<h2 id="for-the-impatient-ones">For the Impatient Ones<a class="headerlink" href="#for-the-impatient-ones" title="Permanent link">&para;</a></h2>
+<ul>
+<li><b>pushd jcc</b></li>
+<li><i>&lt;edit <em>setup.py</em> to match your environment&gt;</i></li>
+<li><b>python setup.py build</b></li>
+<li><b>sudo python setup.py install</b></li>
+<li><b>popd</b></li>
+<li><i>&lt;edit <em>Makefile</em> to match your environment&gt;</i></li>
+<li><b>make</b></li>
+<li><b>make test</b> (look for failures)</li>
+<li><b>sudo make install</b></li>
+</ul>
+<h2 id="for-the-rest-of-us">For the Rest of Us<a class="headerlink" href="#for-the-rest-of-us" title="Permanent link">&para;</a></h2>
+<p>Before building PyLucene, JCC must be
+built first. See
+JCC's <a href="jcc/install.html">installation
+instructions</a> for building and installing it.</p>
+<p>Once JCC is built and installed, PyLucene is built
+via <i>make</i> which invokes JCC. See PyLucene's
+<i>Makefile</i> for configuration instructions.</p>
+<p>There are limits to both how many files can fit on the command
+line and how large a C++ file the C++ compiler can handle.
+By default, JCC generates one large C++ file containing the source
+code for all wrapper classes.</p>
+<p>Using the --files command line argument, this behaviour can be
+tuned to workaround various limits, for example:</p>
+<ul>
+<li>
+<p>to break up the large wrapper class file into about 2 files:<br/>
+<code>--files 2</code></p>
+</li>
+<li>
+<p>to break up the large wrapper class file into about 10 files:<br/>
+<code>--files 10</code></p>
+</li>
+<li>
+<p>to generate one C++ file per Java class wrapped:<br/>
+<code>--files separate</code></p>
+</li>
+</ul>
+<h2 id="notes-for-solaris-11-with-sun-studio-c-12">Notes for Solaris 11 with Sun Studio C++ 12<a class="headerlink" href="#notes-for-solaris-11-with-sun-studio-c-12" title="Permanent link">&para;</a></h2>
+<p>PyLucene's Makefile is a GNU Makefile. Be sure to
+use <i>gmake</i> instead of plain <i>make</i>.</p>
+<p>Just as when building JCC, Python's distutils must be nudged a bit to
+invoke the correct compiler. Sun Studio's C compiler is
+called <i>cc</i> while its C++ compiler is
+called <i>CC</i>.<br/></p>
+<p>To build PyLucene, use the following shell command to ensure that
+the C++ compiler is used:<br/>
+<code>
+$ CC=CC gmake
+</code></p>
+<h2 id="notes-for-solaris-111-with-gcc-45">Notes for Solaris 11.1 with GCC 4.5<a class="headerlink" href="#notes-for-solaris-111-with-gcc-45" title="Permanent link">&para;</a></h2>
+<p>PyLucene's Makefile is a GNU Makefile. Be sure to use gmake instead of plain
+make.</p>
+<ul>
+<li>Edit Makefile and do the following changes:                                <br />
+Insert and enable a Solaris-Section with the following content
+<pre><code>
+# Solaris   (Solaris 11.1, Python 2.6, 32-bit, Java 1.7)
+PREFIX_PYTHON=/usr
+ANT=/usr/bin/ant
+PYTHON=$(PREFIX_PYTHON)/bin/python
+JCC=$(PYTHON) -m jcc.__main__ --reserved DEFAULT_TYPE
+NUM_FILES=4
+</code></pre></li>
+<li>gmake</li>
+<li>su gmake install</li>
+</ul></div>
+      
+
+
+      
+      <div><style type="text/css">
+/* The following code is added by mdx_elementid.py
+   It was originally lifted from http://subversion.apache.org/style/site.css */
+/*
+ * Hide class="elementid-permalink", except when an enclosing heading
+ * has the :hover property.
+ */
+.headerlink, .elementid-permalink {
+  visibility: hidden;
+}
+h2:hover > .headerlink, h3:hover > .headerlink, h1:hover > .headerlink, h6:hover > .headerlink, h4:hover > .headerlink, h5:hover > .headerlink, dt:hover > .elementid-permalink { visibility: visible }</style>
+<h2 id="the-apache-software-foundation">The Apache Software Foundation<a class="headerlink" href="#the-apache-software-foundation" title="Permanent link">&para;</a></h2>
+<p>The <a href="http://www.apache.org">Apache Software Foundation</a> provides support for the Apache community of open-source software projects. The Apache projects are defined by collaborative consensus based processes, an open, pragmatic software license and a desire to create high quality software that leads the way in its field. Apache Lucene, Apache Solr, Apache PyLucene, Apache Open Relevance Project and their respective logos are trademarks of The Apache Software Foundation. All other marks mentioned may be trademarks or registered trademarks of their respective owners.</p></div>
+      
+    </div>
+    
+  
+<div id="sidebar">
+  <div class="button-wrapper" style="margin-top: 40px;">
+    <div class="button-green">
+      <a href="http://www.apache.org/dyn/closer.lua/lucene/pylucene/">Download</a>
+      <div class="flap top">Click to begin</div>
+      <div class="flap bottom">of Apache PyLucene</div>
+    </div>
+  </div>
+  <style type="text/css">
+/* The following code is added by mdx_elementid.py
+   It was originally lifted from http://subversion.apache.org/style/site.css */
+/*
+ * Hide class="elementid-permalink", except when an enclosing heading
+ * has the :hover property.
+ */
+.headerlink, .elementid-permalink {
+  visibility: hidden;
+}
+h2:hover > .headerlink, h3:hover > .headerlink, h1:hover > .headerlink, h6:hover > .headerlink, h4:hover > .headerlink, h5:hover > .headerlink, dt:hover > .elementid-permalink { visibility: visible }</style>
+<h1 id="documentation">Documentation<a class="headerlink" href="#documentation" title="Permanent link">&para;</a></h1>
+<ul>
+<li><a href="https://www.apache.org/licenses/">License</a></li>
+<li><a href="features.html">Features</a></li>
+<li><a href="install.html">Install</a></li>
+</ul>
+<h1 id="events">Events<a class="headerlink" href="#events" title="Permanent link">&para;</a></h1>
+<ul>
+<li><a  href="https://www.apache.org/events/current-event.html" target="_blank"><img src="https://www.apache.org/events/current-event-125x125.png"/></a></li>
+</ul>
+<h1 id="asf-links">ASF links<a class="headerlink" href="#asf-links" title="Permanent link">&para;</a></h1>
+<ul>
+<li><a href="http://www.apache.org">Apache Software Foundation</a></li>
+<li><a href="http://www.apache.org/foundation/thanks.html">Thanks</a></li>
+<li><a href="http://www.apache.org/foundation/sponsorship.html">Become a Sponsor</a></li>
+<li><a href="http://www.apache.org/security/">Security</a></li>
+</ul>
+<h1 id="related-projects">Related Projects<a class="headerlink" href="#related-projects" title="Permanent link">&para;</a></h1>
+<ul>
+<li><a href="http://hadoop.apache.org">Apache Hadoop</a></li>
+<li><a href="http://manifoldcf.apache.org/">Apache ManifoldCF</a></li>
+<li><a href="http://lucenenet.apache.org/">Apache Lucene.Net</a></li>
+<li><a href="http://lucy.apache.org/">Apache Lucy</a></li>
+<li><a href="http://mahout.apache.org">Apache Mahout</a></li>
+<li><a href="http://nutch.apache.org">Apache Nutch</a></li>
+<li><a href="http://opennlp.apache.org/">Apache OpenNLP</a></li>
+<li><a href="http://tika.apache.org">Apache Tika</a></li>
+<li><a href="http://zookeeper.apache.org">Apache Zookeeper</a></li>
+</ul>
+</div>
+
+
+  </div>
+  <div id="footer">
+  <div class="copyright">
+    <p>
+      Copyright &copy; 2011-2019 The Apache Software Foundation, Licensed under
+      the <a href="http://www.apache.org/licenses/LICENSE-2.0">Apache License, Version 2.0</a>.  <a href="/privacy.html">Privacy Policy</a>
+      <br/>
+      Apache and the Apache feather logo are trademarks of The Apache Software Foundation.  Apache Lucene, Apache Solr and their
+      respective logos are trademarks of the Apache Software Foundation.  Please see the <a href="http://www.apache.org/foundation/marks/">Apache Trademark Policy</a>
+      for more information.
+    </p>
+  </div>
+</div>
+
+</div>
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-94576-12']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+</body>
+
